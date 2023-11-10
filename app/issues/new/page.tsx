@@ -1,33 +1,45 @@
 'use client'
-import React from 'react'
-import{TextField, Button} from '@radix-ui/themes'
+import React, { useState } from 'react'
+import{TextField, Button, Callout, Text} from '@radix-ui/themes'
 import { useForm, Controller } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
+import { zodResolver } from '@hookform/resolvers/zod'
+import {z} from 'zod'
 import dynamic from 'next/dynamic'
 import axios from 'axios'
+import {createIssueSchema} from '../../validationSchema'
 import 'easymde/dist/easymde.min.css'
+import Spinner from '../../components/spinner'
 
 const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false })
 
 
-interface TicketForm{
-    title : string
-    description : string
-}
+type IssueForm = z.infer<typeof createIssueSchema>
 
 const NewIssuePage = () => {
+    const [error, setError] = useState('')
+    const [active, setActive] = useState(false)
     const router = useRouter()
-    const {register, control, handleSubmit} = useForm<TicketForm>()
+    const {register, control, handleSubmit, formState: { errors }} = useForm<IssueForm>({
+        resolver : zodResolver(createIssueSchema)
+    })
     return (
-        <>
-            <form 
-            className='mx-4 max-w-[60%]' 
-            onSubmit={handleSubmit(async(data) => { await axios.post('/api/issues', data); router.push('/issues')
-            router.push('/issues')
+        <div className='mx-4 max-w-[60%]'>
+            <form  
+            onSubmit={handleSubmit(async(data) => { 
+                try {
+                    setActive(true)
+                    await axios.post('/api/issues', data); 
+                    router.push('/issues')
+                } catch (error) {
+                    setActive(false)
+                    setError('Errore nella trasmissione dei dati al backend')
+                }
             })}>
                 <TextField.Root className='mb-4' >
                     <TextField.Input placeholder='Titolo' {...register('title')} />
                 </TextField.Root>
+                {errors.title && <Text color='red'>{errors.title.message}</Text>}
                 <Controller
                 name='description'
                 control={control}
@@ -35,9 +47,12 @@ const NewIssuePage = () => {
                     <SimpleMDE placeholder='Spiegazione dettagliata' {...field} />
                 )}
                 />
-                <Button>Apri Ticket</Button>
+                {errors.description && <Text color='red'>{errors.description.message}</Text>}
+                <Button disabled={active}>Apri Ticket{active && <Spinner />}</Button>
             </form>
-        </>
+            {error && <Callout.Root color='red' className='mt-4'>
+            <Callout.Text>{error}</Callout.Text></Callout.Root>}
+        </div>
   )
 }
 
