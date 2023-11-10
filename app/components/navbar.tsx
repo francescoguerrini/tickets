@@ -15,7 +15,7 @@ const Navbar = () => {
     // genera una navbar i cui link vengono mappati dall'array links definito sopra.
     const currentPath = usePathname();
   return (
-    <div className='flex h-16 items-center pl-6 px-24 border-b'>
+    <div className='mb-4 flex h-16 items-center pl-6 px-24 border-b'>
         <Link href='/'><AiFillBug className='text-2xl hover:text-teal-500 transition-colors'/></Link>
         <ul className='flex space-x-6 pl-6'>
             {links.map(link => <Link key={link.href}
