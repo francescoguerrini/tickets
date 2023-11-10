@@ -16,7 +16,7 @@ export async function POST(request:NextRequest){
     if (!validation.success)
     return NextResponse.json(validation.error.errors, { status: 400 })
 
-    const newIssue = await prisma.Issue.create({
+    const newIssue = await prisma.issue.create({
         data: { title : body.title, description : body.description }
     })
 
