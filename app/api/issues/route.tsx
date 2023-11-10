@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import prisma from './client'
+import prisma from '../../../prisma/client'
 import { createIssueSchema } from '../../validationSchema'
 
 

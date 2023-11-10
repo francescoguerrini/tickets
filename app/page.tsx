@@ -1,6 +1,8 @@
 export default function Home() {
   // ritorna la homepage del progetto
   return (
-   <div>Hello World</div>
+  <div className='p-8'>
+    <div>Benvenuto alla pagina iniziale</div>
+  </div>
   )
 }
