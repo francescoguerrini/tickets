@@ -1,8 +1,7 @@
 import React from 'react'
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
-import { Heading, Text, Flex, Card, Box } from '@radix-ui/themes'
-import StatusBadge from '../../components/StatusBadge'
+// quando importiamo lo skeleton, ricordiamoci il suo css
+import { Skeleton } from '../../components'
+import { Flex, Card, Box } from '@radix-ui/themes'
 
 const SingleTicketLoadingPage = () => {
   return (

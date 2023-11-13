@@ -5,13 +5,16 @@ import { useForm, Controller } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {z} from 'zod'
+// dymamic esegue un lazy loading del pacchetto
 import dynamic from 'next/dynamic'
 import axios from 'axios'
 import {createIssueSchema} from '../../validationSchema'
 import 'easymde/dist/easymde.min.css'
 import Spinner from '../../components/Spinner'
 
+// la funzione dynamic prende due argomenti, l'import e il comando di disabilitazione SSR
 const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false })
+
 
 
 type IssueForm = z.infer<typeof createIssueSchema>
