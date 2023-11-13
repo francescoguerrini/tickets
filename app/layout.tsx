@@ -2,7 +2,7 @@ import '@radix-ui/themes/styles.css';
 import type { Metadata } from 'next'
 import './globals.css'
 import { Theme } from '@radix-ui/themes';
-import Navbar from './components/navbar'
+import Navbar from './components/Navbar'
 
 
 

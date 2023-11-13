@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic'
 import axios from 'axios'
 import {createIssueSchema} from '../../validationSchema'
 import 'easymde/dist/easymde.min.css'
-import Spinner from '../../components/spinner'
+import Spinner from '../../components/Spinner'
 
 const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false })
 
