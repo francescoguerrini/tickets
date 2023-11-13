@@ -5,6 +5,7 @@ import { Heading, Text, Flex, Card } from '@radix-ui/themes'
 import StatusBadge from '../../components/StatusBadge'
 //react-markdown permette renderizzazione e preview di stili es.corsivo/grassetto/...
 import ReactMarkdown from 'react-markdown'
+import delay from 'delay'
 
 interface Props{
     params: {id: string}
@@ -19,6 +20,8 @@ const TicketDetailPage = async ({ params }: Props) => {
 
         if (!issue)
             return notFound();
+
+        await delay(2000)
 
         return (
             <div>
